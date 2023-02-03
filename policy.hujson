@@ -25,6 +25,12 @@
 			"dst":    ["autogroup:self"],
 			"users":  ["autogroup:nonroot", "root"],
 		},
+		{
+			"action": "check",
+			"src":    ["james.laska@gmail.com"],
+			"dst":    ["octopi"],
+			"users":  ["jlaska"],
+		},
 	],
 }
 
