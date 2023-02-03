@@ -26,5 +26,13 @@
 			"dst":    ["autogroup:self"],
 			"users":  ["autogroup:nonroot", "root"],
 		},
+		{
+			// Alice can use Tailscale SSH to connect to devices with tag:prod as root user using check mode, with a check period of 1 hour
+			"action": "check",
+			"src": ["james.laska@gmail.com"],
+			"dst": ["octopi"],
+			"users": ["jlaska"],
+			"checkPeriod": "1h"
+		}
 	],
 }
