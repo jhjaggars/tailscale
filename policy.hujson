@@ -4,6 +4,8 @@
 	// Declare static groups of users beyond those in the identity service.
 	"groups": {
 		"group:example": ["user1@example.com", "user2@example.com"],
+		// Invited only to use Plane: tag:plane:443 and nothing else.
+		"group:plane-users": ["akitanoek@gmail.com"],
 	},
 
 	// Declare convenient hostname aliases to use in place of IP addresses.
@@ -13,9 +15,16 @@
 
 	// Access control lists.
 	"acls": [
-		// Match absolutely everything.
-		// Comment this section out if you want to define specific restrictions.
-		{"action": "accept", "users": ["*"], "ports": ["*:*"]},
+		// Full access only for people already on the tailnet before Plane was shared.
+		// Was users: ["*"], which would give every newly invited member the whole tailnet
+		// and bee's 192.168.1.0/24 subnet route. Do NOT add invitees here.
+		{
+			"action": "accept",
+			"users":  ["jhjaggars@gmail.com", "bsdmatburt@gmail.com", "abays113@yahoo.com"],
+			"ports":  ["*:*"],
+		},
+		// Plane's own tailnet node (Tailscale operator Ingress, homelab clusters/homelab/plane).
+		{"action": "accept", "users": ["group:plane-users"], "ports": ["tag:plane:443"]},
 	],
 	"ssh": [
 		// Allow all users to SSH into their own devices in check mode.
@@ -38,5 +47,6 @@
 	"tagOwners": {
 		"tag:k8s-operator": [],
 		"tag:k8s": ["tag:k8s-operator"],
+		"tag:plane": ["tag:k8s-operator"],
 	}
 }
