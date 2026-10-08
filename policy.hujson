@@ -5,7 +5,7 @@
 	"groups": {
 		"group:example": ["user1@example.com", "user2@example.com"],
 		// Invited only to use Plane: tag:plane:443 and nothing else.
-		"group:plane-users": ["akitanoek@gmail.com"],
+		"group:plane-users": ["akitanoek@gmail.com", "bsdmatburt@gmail.com"],
 	},
 
 	// Declare convenient hostname aliases to use in place of IP addresses.
@@ -20,7 +20,7 @@
 		// and bee's 192.168.1.0/24 subnet route. Do NOT add invitees here.
 		{
 			"action": "accept",
-			"users":  ["jhjaggars@gmail.com", "bsdmatburt@gmail.com", "abays113@yahoo.com"],
+			"users":  ["jhjaggars@gmail.com", "abays113@yahoo.com"],
 			"ports":  ["*:*"],
 		},
 		// Plane's own tailnet node (Tailscale operator Ingress, homelab clusters/homelab/plane).
