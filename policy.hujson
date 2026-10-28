@@ -37,7 +37,7 @@
 		// Comment this section out if you want to define specific restrictions.
 		{
 			"action": "check",
-			"src":    ["autogroup:members"],
+			"src":    ["autogroup:member"],
 			"dst":    ["autogroup:self"],
 			"users":  ["autogroup:nonroot", "root"],
 		},
