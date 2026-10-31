@@ -25,6 +25,12 @@
 		},
 		// Plane's own tailnet node (Tailscale operator Ingress, homelab clusters/homelab/plane).
 		{"action": "accept", "users": ["group:plane-users"], "ports": ["tag:plane:443"]},
+		// openclaw-shared lab VM (homelab plans/openclaw-shared-lab-vm.md). The VM is an UNTAGGED
+		// device owned by the agent identity below (tagged devices cannot be node-shared). That
+		// identity appears in NO rule as a source, so the VM can initiate nothing -- keep it that way;
+		// never add it to the full-access list above. jhjaggars/abays113 already reach it via *:*.
+		// autogroup:shared = whoever accepted the node share (the friend): SSH only.
+		{"action": "accept", "users": ["autogroup:shared"], "ports": ["jhjaggars.agent@gmail.com:22"]},
 	],
     "nodeAttrs": [
 		{
@@ -41,6 +47,13 @@
 			"dst":    ["autogroup:self"],
 			"users":  ["autogroup:nonroot", "root"],
 		},
+	],
+	// Blocking assertions: PR check fails if the lab VM's identity could reach the rest of the tailnet.
+	// 100.76.50.5 = bee (also advertises 192.168.1.0/24), 100.74.245.120 = csb-vm.
+	"tests": [
+		{"src": "jhjaggars@gmail.com", "accept": ["jhjaggars.agent@gmail.com:22"]},
+		{"src": "jhjaggars.agent@gmail.com", "deny": ["100.76.50.5:22", "100.76.50.5:18789", "100.74.245.120:22", "192.168.1.58:22", "192.168.1.1:443"]},
+		{"src": "bsdmatburt@gmail.com", "deny": ["jhjaggars.agent@gmail.com:22"]},
 	],
 	"tagOwners": {
 		"tag:k8s-operator": [],
